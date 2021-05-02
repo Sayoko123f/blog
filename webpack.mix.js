@@ -12,10 +12,10 @@ require('vuetifyjs-mix-extension');
  */
 
 mix.js('resources/js/app.js', 'public/js').vuetify().vue()
-    .postCss('resources/css/app.css', 'public/css', [
-        require('postcss-import'),
-        require('tailwindcss'),
-    ]);
+    // .postCss('resources/css/app.css', 'public/css', [
+    //     require('postcss-import'),
+    //     require('tailwindcss'),
+    // ]);
 
 if (mix.inProduction()) {
     mix.version();
