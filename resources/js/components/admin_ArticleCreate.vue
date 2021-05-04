@@ -8,19 +8,8 @@
         label="Title"
         required
       ></v-text-field>
-      <v-textarea
-        auto-grow
-        v-model="ctx_md"
-        :rules="ctx_mdRules"
-        label="Markdown content"
-        required
-      ></v-textarea>
-      <v-switch v-model="showPreview" label="Preview"></v-switch>
-      <v-card-text
-        v-if="showPreview"
-        v-html="ctx_html"
-        class="markdown-body"
-      ></v-card-text>
+      <div id="editor" ref="editor"></div>
+      <!-- <v-switch v-model="showPreview" label="Preview"></v-switch> -->
       <v-btn :disabled="!valid" color="success" class="mr-4" @click="submit">
         Sumbit
       </v-btn>
@@ -32,8 +21,13 @@
 export default {
   mounted() {
     console.log("admin_ArticleCreate mounted.");
-    marked.setOptions({
-      headerIds: false,
+    console.log(window.markdown);
+    const editor = new markdown.Editor({
+      el: document.querySelector("#editor"),
+      height: "500px",
+      initialEditType: "markdown",
+      previewStyle: "vertical",
+      plugins: [[window.markdown.codeSyntaxHighlight, { hljs: window.markdown.hljs }]],
     });
   },
   data: () => ({
@@ -48,9 +42,9 @@ export default {
     hello() {
       return "hello";
     },
-    ctx_html() {
-      return marked(this.ctx_md);
-    },
+    // ctx_html() {
+    //   return marked(this.ctx_md);
+    // },
   },
   methods: {
     submit() {

@@ -27,9 +27,10 @@
         "vuetifyjs-mix-extension": "0.0.20"
     },
     "dependencies": {
+        "@toast-ui/editor": "^2.5.2",
+        "@toast-ui/editor-plugin-code-syntax-highlight": "^1.0.0",
         "vue": "^2.6.12",
         "vue-router": "^3.5.1",
-        "vuetify": "^2.4.11",
-        "vuetify-markdown-editor": "^3.3.3"
+        "vuetify": "^2.4.11"
     }
 }
