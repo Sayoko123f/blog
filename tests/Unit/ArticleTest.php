@@ -16,7 +16,7 @@ class ArticelTest extends TestCase
     {
         $res1 = $this->post('/api/article', [
             'title' => 'hello',
-            'ctx' => 'ccc',
+            'ctx_md' => 'ccc',
             'ctx_html' => '<p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p>',
         ]);
         $res1->assertSuccessful();
@@ -27,7 +27,7 @@ class ArticelTest extends TestCase
     {
         $res1 = $this->put('/api/article/1', [
             'title' => 'update test',
-            'ctx' => 'updatetest',
+            'ctx_md' => 'updatetest',
             'ctx_html' => '<p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p>',
         ]);
         $res1->assertSuccessful();
@@ -39,7 +39,7 @@ class ArticelTest extends TestCase
 
         $res2 = $this->put('/api/article/999999', [
             'title' => 'fail test',
-            'ctx' => 'fail',
+            'ctx_md' => 'fail',
             'ctx_html' => '123',
         ]);
         $res2->assertStatus(500);

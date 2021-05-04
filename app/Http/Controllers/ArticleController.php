@@ -34,22 +34,29 @@ class ArticleController extends Controller
         //
         $request->validate([
             'title' => 'required',
-            'ctx' => 'required',
+            'ctx_md' => 'required',
             'ctx_html' => 'required',
         ]);
         $item = new Article();
         $item->title = $request->input('title');
-        $item->ctx_md = $request->input('ctx');
+        $item->ctx_md = $request->input('ctx_md');
 
         // HTMLPurifier
-        $item->ctx_html  = \Purifier::clean($request->input('ctx_html'));
+        $config = \HTMLPurifier_Config::createDefault();
+        $config->set('HTML.DefinitionID', 'article');
+        $config->set('HTML.DefinitionRev', 1);
+        $config->set('Cache.DefinitionImpl', null);
+        $config->set('HTML.Allowed', 'p,ul,ol,li,h1,h2,h3,h4,h5,h6,span,br,em,strong,del,ul,li');
+        $purifier = new \HTMLPurifier($config);
+        $item->ctx_html = $purifier->purify($request->input('ctx_html'));
+        // $item->ctx_html  = \Purifier::clean($request->input('ctx_html'));
         $item->save();
         // try {
         //     $item->saveOrFail();
         // } catch (\Exception $e) {
         //     echo $e->getMessage();
         // }
-        return response('ok', 200);
+        return response(strval($item->ctx_html), 200);
     }
 
     /**

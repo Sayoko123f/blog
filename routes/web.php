@@ -43,4 +43,5 @@ npm install vuetify && npm install sass sass-loader deepmerge -D
 npm i vuetifyjs-mix-extension@0.0.20 -D
 composer require mews/purifier
 https://github.com/Nothing-Works/vuetifyjs-mix-extension/blob/master/readme.md
+npm install vuetify-markdown-editor
 */
