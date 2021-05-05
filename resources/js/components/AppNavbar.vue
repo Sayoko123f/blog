@@ -60,7 +60,7 @@ export default {
     navToggleMini: false,
     items: [
       { title: "Home", href: "/", icon: "mdi-home-outline" },
-      { title: "Detections", href: "/detections", icon: "mdi-shield-account" },
+      { title: "Test", href: "/test", icon: "mdi-shield-account" },
       { title: "ArticleCreate", href: "/admin/article/create", icon: "mdi-shield-account" },
     ],
   }),

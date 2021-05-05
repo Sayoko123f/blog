@@ -16,7 +16,7 @@ class ArticleController extends Controller
     public function index()
     {
         //
-        $res = Article::select('id', 'title', 'created_at')->paginate();
+        $res = Article::select('id', 'title', 'created_at')->orderBy('created_at', 'desc')->paginate(12);
         /*
         SELECT REGEXP_REPLACE(`ctx_md`,'<(?!br).+?>','') FROM `article`
 */
@@ -42,14 +42,8 @@ class ArticleController extends Controller
         $item->ctx_md = $request->input('ctx_md');
 
         // HTMLPurifier
-        $config = \HTMLPurifier_Config::createDefault();
-        $config->set('HTML.DefinitionID', 'article');
-        $config->set('HTML.DefinitionRev', 1);
-        $config->set('Cache.DefinitionImpl', null);
-        $config->set('HTML.Allowed', 'p,ul,ol,li,h1,h2,h3,h4,h5,h6,span,br,em,strong,del,ul,li');
-        $purifier = new \HTMLPurifier($config);
-        $item->ctx_html = $purifier->purify($request->input('ctx_html'));
-        // $item->ctx_html  = \Purifier::clean($request->input('ctx_html'));
+        $item->ctx_html = $this->purifyHTML($request->input('ctx_html'));
+
         $item->save();
         // try {
         //     $item->saveOrFail();
@@ -68,8 +62,12 @@ class ArticleController extends Controller
     public function show($id)
     {
         //
-        $res = Article::find($id);
-        return response()->json($res);
+        // $res = Article::find($id);
+        $res = Article::select(['id', 'title', 'ctx_html', 'created_at'])->where('id', $id)->get();
+        if (!isset($res[0])) {
+            return response()->json([], 404);
+        }
+        return response()->json($res[0]);
     }
 
     /**
@@ -84,16 +82,17 @@ class ArticleController extends Controller
         //        
         $request->validate([
             'title' => 'required',
-            'ctx' => 'required',
+            'ctx_md' => 'required',
             'ctx_html' => 'required',
         ]);
         $item = Article::find($id);
         $item->title = $request->input('title');
-        $item->ctx_md = $request->input('ctx');
+        $item->ctx_md = $request->input('ctx_md');
 
         // HTMLPurifier
-        $item->ctx_html  = \Purifier::clean($request->input('ctx_html'));
+        $item->ctx_html = $this->purifyHTML($request->input('ctx_html'));
         $item->save();
+
         return response('ok', 200);
     }
 
@@ -108,5 +107,19 @@ class ArticleController extends Controller
         //
         Article::destroy($id);
         return response('ok', 200);
+    }
+
+    private function purifyHTML($dirty_html): string
+    {
+        $config = \HTMLPurifier_Config::createDefault();
+        // $config->set('HTML.DefinitionID', 'article');
+        // $config->set('HTML.DefinitionRev', 2);
+        // $config->set('Cache.DefinitionImpl', null); for test
+        $config->set('HTML.Allowed', 'p,ul,ol,li,h1,h2,h3,h4,h5,h6,span,br,em,strong,del,ol,ul,li,blockquote,dl,dt,dd,code[data-language|data-backticks],pre[class],hr,table,thead,tr,th[align],td[align],tbody,a[title|href],img[src|alt|title]');
+        $def = $config->getHTMLDefinition(true);
+        $def->addAttribute('code', 'data-language', 'Text');
+        $def->addAttribute('code', 'data-backticks', 'Text');
+        $purifier = new \HTMLPurifier($config);
+        return $purifier->purify($dirty_html);
     }
 }

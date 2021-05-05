@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController as Article;
+use App\Http\Controllers\UploadController as Upload;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +25,10 @@ Route::prefix('api')->group(function () {
         Route::get('/{id}', [Article::class, 'show']);
         Route::put('/{id}', [Article::class, 'update']);
         Route::delete('/{id}', [Article::class, 'destroy']);
+    });
+
+    Route::prefix('upload')->group(function(){
+        Route::post('/image',[Upload::class,'image']);
     });
 });
 

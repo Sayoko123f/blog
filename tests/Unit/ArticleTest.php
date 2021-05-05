@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\Article;
 
-class ArticelTest extends TestCase
+class ArticleTest extends TestCase
 {
     /**
      * A basic unit test example.
@@ -20,7 +20,7 @@ class ArticelTest extends TestCase
             'ctx_html' => '<p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p>',
         ]);
         $res1->assertSuccessful();
-        Article::factory()->count(1)->create();
+        Article::factory()->count(4)->create();
     }
 
     public function test_update()
@@ -43,7 +43,6 @@ class ArticelTest extends TestCase
             'ctx_html' => '123',
         ]);
         $res2->assertStatus(500);
-
     }
 
     public function test_show()
