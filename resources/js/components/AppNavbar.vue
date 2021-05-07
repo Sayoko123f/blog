@@ -1,9 +1,9 @@
 <template>
   <v-navigation-drawer
-    v-model="sidebarMenu"
+    v-model="sidebarMenuCopy"
     app
     floating
-    :permanent="sidebarMenu"
+    :permanent="sidebarMenuCopy"
     :mini-variant.sync="mini"
   >
     <v-list dense>
@@ -49,6 +49,7 @@
 export default {
   mounted() {
     console.log("AppNavbar mounted.");
+    this.sidebarMenuCopy = this.sidebarMenu;
   },
   props: {
     sidebarMenu: {
@@ -61,7 +62,12 @@ export default {
     items: [
       { title: "Home", href: "/", icon: "mdi-home-outline" },
       { title: "Test", href: "/test", icon: "mdi-shield-account" },
-      { title: "ArticleCreate", href: "/admin/article/create", icon: "mdi-shield-account" },
+      { title: "AdminIndex", href: "/admin/article", icon: "mdi-shield-account" },
+      {
+        title: "ArticleCreate",
+        href: "/admin/article/create",
+        icon: "mdi-shield-account",
+      },
     ],
   }),
   computed: {
@@ -71,6 +77,14 @@ export default {
       },
       set(val) {
         this.navToggleMini = val;
+      },
+    },
+    sidebarMenuCopy: {
+      get() {
+        return this.sidebarMenu;
+      },
+      set(val) {
+        this.$emit("togglemenu",val);
       },
     },
   },

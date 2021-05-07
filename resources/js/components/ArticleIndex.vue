@@ -4,6 +4,13 @@
       <v-card :class="{ primary: hover }" @click="show(item.id)" role="button">
         <v-card-title>{{ item.title }}</v-card-title>
         <v-card-subtitle>{{ item.created_at }}</v-card-subtitle>
+        <v-card-text>
+          <v-chip
+            v-for="tag in splitTag(item.tags)"
+            :key="`${item.id}-${tag}`"
+            >{{ tag }}</v-chip
+          >
+        </v-card-text>
       </v-card>
     </v-hover>
     <v-pagination
@@ -39,6 +46,7 @@ export default {
       axios
         .get(`${my.articleIndexURL}?page=${page}`)
         .then((response) => {
+          console.log(response.data);
           this.items = response.data.data;
           this.last_page = response.data.last_page;
           this.loaded = true;
@@ -50,6 +58,9 @@ export default {
     },
     pageMove() {
       this.init(this.page);
+    },
+    splitTag(str) {
+      return str ? str.split(",") : [];
     },
     show(id) {
       this.$router.push({

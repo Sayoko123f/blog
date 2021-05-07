@@ -22,7 +22,7 @@
             <v-icon>mdi-account</v-icon>
         </v-app-bar>
 
-        <app-navbar :sidebar-menu="sidebarMenu" v-on:togglemenu="sidebarMenu = !sidebarMenu"></app-navbar>
+        <app-navbar :sidebar-menu="sidebarMenu" v-on:togglemenu="menuToggle"></app-navbar>
 
         <v-main>
             <!-- 给应用提供合适的间距 -->

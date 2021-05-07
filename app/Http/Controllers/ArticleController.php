@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\ArticleTag;
 use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
@@ -16,10 +17,7 @@ class ArticleController extends Controller
     public function index()
     {
         //
-        $res = Article::select('id', 'title', 'created_at')->orderBy('created_at', 'desc')->paginate(12);
-        /*
-        SELECT REGEXP_REPLACE(`ctx_md`,'<(?!br).+?>','') FROM `article`
-*/
+        $res = DB::table('article')->select('article.id', 'article.title', 'article.created_at', 'tmp.tags')->leftJoin(DB::raw("(SELECT `article_id`,GROUP_CONCAT(`tag`) AS tags FROM `article_tag` GROUP BY `article_id`) AS tmp"), 'article.id', '=', 'tmp.article_id')->orderByDesc('created_at')->paginate(12);
         return response()->json($res);
     }
 
@@ -40,17 +38,16 @@ class ArticleController extends Controller
         $item = new Article();
         $item->title = $request->input('title');
         $item->ctx_md = $request->input('ctx_md');
-
         // HTMLPurifier
         $item->ctx_html = $this->purifyHTML($request->input('ctx_html'));
-
         $item->save();
-        // try {
-        //     $item->saveOrFail();
-        // } catch (\Exception $e) {
-        //     echo $e->getMessage();
-        // }
-        return response(strval($item->ctx_html), 200);
+
+        // Tags
+        if ($request->has('tags')) {
+            $this->tagStore($item->id, $request->input('tags'));
+        }
+
+        return response('Save', 200);
     }
 
     /**
@@ -62,7 +59,6 @@ class ArticleController extends Controller
     public function show($id)
     {
         //
-        // $res = Article::find($id);
         $res = Article::select(['id', 'title', 'ctx_html', 'created_at'])->where('id', $id)->get();
         if (!isset($res[0])) {
             return response()->json([], 404);
@@ -88,11 +84,15 @@ class ArticleController extends Controller
         $item = Article::find($id);
         $item->title = $request->input('title');
         $item->ctx_md = $request->input('ctx_md');
-
         // HTMLPurifier
         $item->ctx_html = $this->purifyHTML($request->input('ctx_html'));
         $item->save();
 
+        // Tags
+        if ($request->has('tags')) {
+            $this->tagDestroy($id);
+            $this->tagStore($id, $request->input('tags'));
+        }
         return response('ok', 200);
     }
 
@@ -106,10 +106,21 @@ class ArticleController extends Controller
     {
         //
         Article::destroy($id);
+        $this->tagDestroy($id);
         return response('ok', 200);
     }
 
-    private function purifyHTML($dirty_html): string
+    public function edit($id)
+    {
+        // $res = Article::select(['id', 'title', 'ctx_md', 'created_at'])->where('id', $id)->get();
+        $res = DB::table('article')->select('article.id','article.title','article.ctx_md','article.created_at','tmp.tags')->leftJoin(DB::raw("(SELECT `article_id`,GROUP_CONCAT(`tag`) AS tags FROM `article_tag` GROUP BY `article_id`) AS tmp"), 'article.id', '=', 'tmp.article_id')->where('article.id','=',$id)->get();
+        if (!isset($res[0])) {
+            return response()->json([], 404);
+        }
+        return response()->json($res[0]);
+    }
+
+    private function purifyHTML(string $dirty_html): string
     {
         $config = \HTMLPurifier_Config::createDefault();
         // $config->set('HTML.DefinitionID', 'article');
@@ -121,5 +132,30 @@ class ArticleController extends Controller
         $def->addAttribute('code', 'data-backticks', 'Text');
         $purifier = new \HTMLPurifier($config);
         return $purifier->purify($dirty_html);
+    }
+
+    // For Tag
+    private function tagStore(string $articleId, array $tags)
+    {
+        foreach ($tags as $tag) {
+            // check exists
+            $data = ArticleTag::select('id')->where(['tag' => $tag, 'article_id' => $articleId])->get();
+            if (count($data) > 0) {
+                return response('The tag is exists.');
+            }
+            $item = new ArticleTag();
+            $item->tag = $tag;
+            $item->article_id = $articleId;
+            $item->save();
+        }
+        return true;
+    }
+    /**
+     * Remove all tags from the articleId
+     */
+    private function tagDestroy(string $articleId)
+    {
+        DB::table('article_tag')->where('article_id','=',$articleId)->delete();
+        return true;
     }
 }

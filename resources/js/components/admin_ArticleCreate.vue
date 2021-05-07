@@ -8,8 +8,20 @@
         label="Title"
         required
       ></v-text-field>
+      <v-combobox
+        v-model="tags"
+        :items="tagItems"
+        label="Tags"
+        multiple
+        chips
+      ></v-combobox>
       <div id="editor" ref="editor"></div>
-      <v-btn :disabled="!valid" color="success" class="mr-4" @click="submit">
+      <v-btn
+        :disabled="submitDisabled && !valid"
+        color="success"
+        class="mr-4"
+        @click="submit"
+      >
         Sumbit
       </v-btn>
     </v-form>
@@ -31,31 +43,34 @@ export default {
     });
   },
   data: () => ({
+    tags: [],
+    tagItems: [],
     valid: true,
     title: "",
     titleRules: [(v) => !!v || "Name is required"],
     editor: Object,
+    submitDisabled: false,
   }),
-  computed: {
-    hello() {
-      return "hello";
-    },
-  },
+  computed: {},
   methods: {
     submit() {
       if (!this.$refs.form.validate()) {
         return;
       }
-      // if (!confirm("Are you sure?")) {
-      //   return;
-      // }
-      console.log(this.editor.getHtml());
+      if (!this.editor.getHtml()) {
+        alert("請填寫內容");
+        return;
+      }
+      if (!confirm("Are you sure?")) {
+        return;
+      }
+      this.submitDisabled = true;
       const data = JSON.stringify({
         title: this.title,
         ctx_md: this.editor.getMarkdown(),
         ctx_html: this.editor.getHtml(),
+        tags: this.tags,
       });
-      // console.log(data.ctx_md);
       const headers = {
         "Content-Type": "application/json",
         "X-CSRF-TOKEN": my.csrf(),
@@ -64,6 +79,7 @@ export default {
         .post(my.articleCreateURL, data, { headers })
         .then((response) => {
           console.log(response.data);
+          this.$router.push({ name: "admin_articleIndex" });
         })
         .catch((err) => {
           console.log(err);

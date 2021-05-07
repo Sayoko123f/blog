@@ -18,5 +18,10 @@ const app = new Vue({
     data: () => ({
         sidebarMenu: false,
 
-    })
+    }),
+    methods: {
+        menuToggle(val) {
+            this.sidebarMenu = val;
+        }
+    }
 });
