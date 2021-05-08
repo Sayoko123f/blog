@@ -64,10 +64,14 @@ export default {
       return str ? str.split(",") : [];
     },
     show(id) {
+      let params = { page: this.page };
+      if (this.$route.query.q) {
+        params.q = this.$route.query.q;
+      }
       this.$router.push({
         name: "articleShow",
         params: { id: id },
-        query: { page: this.page },
+        query: params,
       });
     },
   },

@@ -37,9 +37,13 @@ export default {
   methods: {
     back() {
       let page = this.$route.query.page || 1;
+      let params = { page };
+      if (this.$route.query.q) {
+        params.q = this.$route.query.q;
+      }
       this.$router.push({
         name: "articleIndex",
-        query: { page },
+        query: params,
       });
     },
   },
