@@ -14,10 +14,24 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $request->validate([
+            'q' => 'string|max:60',
+        ]);
+        // Search
+        if ($request->has('q')) {
+            return $this->search($request);
+        }
+        // Default
         $res = DB::table('article')->select('article.id', 'article.title', 'article.created_at', 'tmp.tags')->leftJoin(DB::raw("(SELECT `article_id`,GROUP_CONCAT(`tag`) AS tags FROM `article_tag` GROUP BY `article_id`) AS tmp"), 'article.id', '=', 'tmp.article_id')->orderByDesc('created_at')->paginate(12);
+        return response()->json($res);
+    }
+
+    public function search(Request $request)
+    {
+        $q = $request->input('q');
+        $res = DB::table('article')->select('article.id', 'article.title', 'article.created_at', 'tmp.tags')->leftJoin(DB::raw("(SELECT `article_id`,GROUP_CONCAT(`tag`) AS tags FROM `article_tag` GROUP BY `article_id`) AS tmp"), 'article.id', '=', 'tmp.article_id')->where('article.title', 'like', "%$q%")->orWhere('tmp.tags', 'like', "%$q%")->orderByDesc('created_at')->paginate(12);
         return response()->json($res);
     }
 
@@ -34,6 +48,7 @@ class ArticleController extends Controller
             'title' => 'required',
             'ctx_md' => 'required',
             'ctx_html' => 'required',
+            'tags' => 'array',
         ]);
         $item = new Article();
         $item->title = $request->input('title');
@@ -113,7 +128,7 @@ class ArticleController extends Controller
     public function edit($id)
     {
         // $res = Article::select(['id', 'title', 'ctx_md', 'created_at'])->where('id', $id)->get();
-        $res = DB::table('article')->select('article.id','article.title','article.ctx_md','article.created_at','tmp.tags')->leftJoin(DB::raw("(SELECT `article_id`,GROUP_CONCAT(`tag`) AS tags FROM `article_tag` GROUP BY `article_id`) AS tmp"), 'article.id', '=', 'tmp.article_id')->where('article.id','=',$id)->get();
+        $res = DB::table('article')->select('article.id', 'article.title', 'article.ctx_md', 'article.created_at', 'tmp.tags')->leftJoin(DB::raw("(SELECT `article_id`,GROUP_CONCAT(`tag`) AS tags FROM `article_tag` GROUP BY `article_id`) AS tmp"), 'article.id', '=', 'tmp.article_id')->where('article.id', '=', $id)->get();
         if (!isset($res[0])) {
             return response()->json([], 404);
         }
@@ -155,7 +170,7 @@ class ArticleController extends Controller
      */
     private function tagDestroy(string $articleId)
     {
-        DB::table('article_tag')->where('article_id','=',$articleId)->delete();
+        DB::table('article_tag')->where('article_id', '=', $articleId)->delete();
         return true;
     }
 }

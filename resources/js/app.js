@@ -10,6 +10,7 @@ import markdown from './markdown';
 window.markdown = markdown;
 
 Vue.component('app-navbar', require('./components/AppNavbar.vue').default);
+Vue.component('search-bar', require('./components/SearchBar.vue').default);
 
 const app = new Vue({
     el: '#app',

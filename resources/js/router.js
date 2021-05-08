@@ -8,11 +8,13 @@ import ArticleCreate from './components/admin_ArticleCreate.vue';
 import ArticleShow from './components/ArticleShow.vue';
 import admin_ArticleIndex from './components/admin_ArticleIndex.vue';
 import admin_ArticleEdit from './components/admin_ArticleEdit.vue';
+import rct from './components/RedirectComponent.vue';
 
 
 const routes = [
     //{ path: '/example', component: example, name: 'example', redirect: '/', meta: { auth: false } },
     { path: '/test', component: example, name: 'test', },
+    { path: '/redirect', component: rct, name: 'redirect', },
     { path: '/', component: ArticleIndex, name: 'articleIndex', },
     { path: '/article/:id', component: ArticleShow, name: 'articleShow', },
     { path: '/admin/article/create', component: ArticleCreate, name: 'articleCreate', },

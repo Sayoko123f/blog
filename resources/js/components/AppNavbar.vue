@@ -62,7 +62,11 @@ export default {
     items: [
       { title: "Home", href: "/", icon: "mdi-home-outline" },
       { title: "Test", href: "/test", icon: "mdi-shield-account" },
-      { title: "AdminIndex", href: "/admin/article", icon: "mdi-shield-account" },
+      {
+        title: "AdminIndex",
+        href: "/admin/article",
+        icon: "mdi-shield-account",
+      },
       {
         title: "ArticleCreate",
         href: "/admin/article/create",
@@ -84,7 +88,7 @@ export default {
         return this.sidebarMenu;
       },
       set(val) {
-        this.$emit("togglemenu",val);
+        this.$emit("togglemenu", val);
       },
     },
   },

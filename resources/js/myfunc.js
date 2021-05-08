@@ -4,6 +4,7 @@ const my = {
     articleUpdateURL(id) { return `/api/article/${id}` },
     articleEditURL(id) { return `/api/article/edit/${id}` },
     articleShowURL(id) { return `/api/article/${id}`; },
+    articleSearchURL: '/api/article',
     csrf() {
         return document.head.querySelector("[name~=csrf-token][content]").content;
     }

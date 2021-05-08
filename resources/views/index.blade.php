@@ -19,6 +19,7 @@
             <v-app-bar-nav-icon @click.stop="sidebarMenu = !sidebarMenu"></v-app-bar-nav-icon>
             <v-toolbar-title>Dashboard</v-toolbar-title>
             <v-spacer></v-spacer>
+            <search-bar></search-bar>
             <v-icon>mdi-account</v-icon>
         </v-app-bar>
 
