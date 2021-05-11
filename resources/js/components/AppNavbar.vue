@@ -72,6 +72,16 @@ export default {
         href: "/admin/article/create",
         icon: "mdi-shield-account",
       },
+      {
+        title: "Login",
+        href: "/login",
+        icon: "mdi-shield-account",
+      },
+      {
+        title: "Register",
+        href: "/register",
+        icon: "mdi-shield-account",
+      },
     ],
   }),
   computed: {

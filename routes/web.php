@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController as Article;
 use App\Http\Controllers\UploadController as Upload;
-use App\Http\Controllers\ArticleTagController as Tag;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use Laravel\Fortify\Http\Controllers\RegisteredUserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,8 +18,31 @@ use App\Http\Controllers\ArticleTagController as Tag;
 */
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return view('index');
 })->name('dashboard');
+
+Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
+
+    $limiter = config('fortify.limiters.login');
+    Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+        ->middleware(array_filter([
+            'guest:' . config('fortify.guard'),
+            $limiter ? 'throttle:' . $limiter : null,
+        ]));
+
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+        ->name('logout');
+
+    Route::post('/register', [RegisteredUserController::class, 'store'])
+        ->middleware(['guest:' . config('fortify.guard')]);
+});
+Route::get('/islogin', function () {
+    return auth()->check() ? response('Login!', 200) : response('Not login:(', 403);
+});
+
+Route::get('/getuser', function () {
+    return auth()->check() ? response()->json(auth()->user(), 200) : response()->json('Not login:(', 403);;
+});
 
 Route::prefix('api')->group(function () {
     Route::prefix('article')->group(function () {
