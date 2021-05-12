@@ -46,6 +46,14 @@
 
 <script>
 export default {
+  beforeRouteEnter(to, from, next) {
+    if (window.app.user) {
+      alert("您已經登入！跳轉至首頁");
+      next({ name: "articleIndex" });
+    } else {
+      next();
+    }
+  },
   mounted() {
     console.log("RegisterComponent mounted.");
   },
@@ -86,17 +94,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          this.isLogin();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    isLogin() {
-      axios
-        .get("/islogin")
-        .then((res) => {
-          console.log(res.data);
+          location.href="/";
         })
         .catch((err) => {
           console.log(err);

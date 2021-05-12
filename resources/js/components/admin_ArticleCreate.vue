@@ -30,6 +30,13 @@
 
 <script>
 export default {
+  beforeRouteEnter(to, from, next) {
+    if (!window.app.user) {
+      next({ name: "login" });
+    } else {
+      next();
+    }
+  },
   mounted() {
     console.log("admin_ArticleCreate mounted.");
     this.editor = new markdown.Editor({

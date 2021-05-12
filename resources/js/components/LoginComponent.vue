@@ -18,10 +18,12 @@
             label="Password"
             prepend-icon="mdi-key-variant"
             required
+            type="password"
           >
           </v-text-field>
         </v-form>
         <v-btn @click="login" color="primary">Login</v-btn>
+        <v-btn @click="test" color="secondary">填入測試帳號</v-btn>
       </v-card-text>
     </v-card>
   </div>
@@ -29,12 +31,19 @@
 
 <script>
 export default {
+  beforeRouteEnter(to, from, next) {
+    if (window.app.user) {
+      alert("您已經登入！跳轉至首頁");
+      next({ name: "articleIndex" });
+    } else {
+      next();
+    }
+  },
   mounted() {
     console.log("LoginComponent mounted.");
   },
   data: () => ({
     valid: true,
-    test: "",
     email: "",
     emailRules: [(v) => !!v || "Email is required."],
     password: "",
@@ -53,22 +62,15 @@ export default {
         })
         .then((res) => {
           console.log(res.data);
-          this.isLogin();
+          location.href = "/";
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    isLogin() {
-      console.log("Check islogin()");
-      axios
-        .get("/islogin")
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    test() {
+      this.email = "collect123a@gmail.com";
+      this.password = "11111111";
     },
   },
 };

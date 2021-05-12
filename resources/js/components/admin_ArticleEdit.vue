@@ -17,7 +17,12 @@
         chips
       ></v-combobox>
       <div id="editor" ref="editor"></div>
-      <v-btn :disabled="submitDisabled||!valid" color="success" class="mr-4" @click="submit">
+      <v-btn
+        :disabled="submitDisabled || !valid"
+        color="success"
+        class="mr-4"
+        @click="submit"
+      >
         Sumbit
       </v-btn>
       <v-btn color="warning" class="ma-4" @click="del">Delete</v-btn>
@@ -27,6 +32,13 @@
 
 <script>
 export default {
+  beforeRouteEnter(to, from, next) {
+    if (!window.app.user) {
+      next({ name: "login" });
+    } else {
+      next();
+    }
+  },
   mounted() {
     console.log("ArticleShow mounted.");
     axios

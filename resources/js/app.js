@@ -18,11 +18,25 @@ const app = new Vue({
     vuetify: new Vuetify(),
     data: () => ({
         sidebarMenu: false,
-
+        user: null,
     }),
+    mounted() {
+        this.checkAuth();
+    },
     methods: {
         menuToggle(val) {
             this.sidebarMenu = val;
+        },
+        checkAuth() {
+            axios
+                .get("/api/getuser")
+                .then((res) => {
+                    this.user = res.data;
+                })
+                .catch((err) => {
+                    this.user = null;
+                });
         }
     }
 });
+window.app = app;

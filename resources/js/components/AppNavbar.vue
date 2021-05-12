@@ -23,7 +23,7 @@
         <v-icon>mdi-account-outline</v-icon>
       </v-list-item-avatar>
       <v-list-item-content class="text-truncate">
-        Jane Doeski
+        {{username}}
       </v-list-item-content>
       <v-btn icon small>
         <v-icon>mdi-chevron-left</v-icon>
@@ -59,32 +59,44 @@ export default {
   },
   data: () => ({
     navToggleMini: false,
-    items: [
-      { title: "Home", href: "/", icon: "mdi-home-outline" },
-      { title: "Test", href: "/test", icon: "mdi-shield-account" },
-      {
-        title: "AdminIndex",
-        href: "/admin/article",
-        icon: "mdi-shield-account",
-      },
-      {
-        title: "ArticleCreate",
-        href: "/admin/article/create",
-        icon: "mdi-shield-account",
-      },
-      {
-        title: "Login",
-        href: "/login",
-        icon: "mdi-shield-account",
-      },
-      {
-        title: "Register",
-        href: "/register",
-        icon: "mdi-shield-account",
-      },
-    ],
   }),
   computed: {
+    username() {
+      return this.$root.user ? "Jane Doeski" : "Not login";
+    },
+    items() {
+      const all = [
+        { title: "Home", href: "/", icon: "mdi-home-outline" },
+        { title: "Test", href: "/test", icon: "mdi-shield-account" },
+      ];
+      const guest = [
+        ...all,
+        {
+          title: "Login",
+          href: "/login",
+          icon: "mdi-shield-account",
+        },
+        {
+          title: "Register",
+          href: "/register",
+          icon: "mdi-shield-account",
+        },
+      ];
+      const auth = [
+        ...all,
+        {
+          title: "AdminIndex",
+          href: "/admin/article",
+          icon: "mdi-shield-account",
+        },
+        {
+          title: "ArticleCreate",
+          href: "/admin/article/create",
+          icon: "mdi-shield-account",
+        },
+      ];
+      return this.$root.user ? auth : guest;
+    },
     mini: {
       get() {
         return this.$vuetify.breakpoint.smAndDown || this.navToggleMini;

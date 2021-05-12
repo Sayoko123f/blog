@@ -22,7 +22,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::group(['middleware' => config('fortify.middleware', ['web'])], function () {
-
+    Route::get('/login', function () {
+        return view('index');
+    })->name('login');
     $limiter = config('fortify.limiters.login');
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])
         ->middleware(array_filter([
@@ -36,26 +38,24 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
     Route::post('/register', [RegisteredUserController::class, 'store'])
         ->middleware(['guest:' . config('fortify.guard')]);
 });
-Route::get('/islogin', function () {
-    return auth()->check() ? response('Login!', 200) : response('Not login:(', 403);
-});
-
-Route::get('/getuser', function () {
-    return auth()->check() ? response()->json(auth()->user(), 200) : response()->json('Not login:(', 403);;
-});
 
 Route::prefix('api')->group(function () {
+    // Auth
+    Route::get('/getuser', function () {
+        return auth()->check() ? response()->json(auth()->user(), 200) : response()->json('Not login:(', 403);;
+    });
+    // Article
     Route::prefix('article')->group(function () {
         Route::get('/', [Article::class, 'index']);
-        Route::post('/', [Article::class, 'store']);
         Route::get('/{id}', [Article::class, 'show']);
-        Route::put('/{id}', [Article::class, 'update']);
-        Route::delete('/{id}', [Article::class, 'destroy']);
-        Route::get('/edit/{id}', [Article::class, 'edit']);
+        Route::middleware('auth')->post('/', [Article::class, 'store']);
+        Route::middleware('auth')->put('/{id}', [Article::class, 'update']);
+        Route::middleware('auth')->delete('/{id}', [Article::class, 'destroy']);
+        Route::middleware('auth')->get('/edit/{id}', [Article::class, 'edit']);
     });
 
     Route::prefix('upload')->group(function () {
-        Route::post('/image', [Upload::class, 'image']);
+        Route::middleware('auth')->post('/image', [Upload::class, 'image']);
     });
 });
 

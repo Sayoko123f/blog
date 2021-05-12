@@ -7,7 +7,7 @@ const my = {
     articleSearchURL: '/api/article',
     csrf() {
         return document.head.querySelector("[name~=csrf-token][content]").content;
-    }
+    },
 };
 
 window.my = my;
