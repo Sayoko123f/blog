@@ -13,6 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+		$this->app->bind('path.public', function(){
+			return base_path().'/public_html';
+		});
         // for https://github.com/barryvdh/laravel-ide-helper
         if ($this->app->isLocal()) {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);

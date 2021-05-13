@@ -10,9 +10,9 @@ require('vuetifyjs-mix-extension');
  | file for the application as well as bundling up all the JS files.
  |
  */
-
-mix.js('resources/js/app.js', 'public/js').vuetify().vue()
-    // .postCss('resources/css/app.css', 'public/css', [
+mix.setPublicPath('public_html/');
+mix.js('resources/js/app.js', 'public_html/js').vuetify().vue()
+    // .postCss('resources/css/app.css', 'public_html/css', [
     //     require('postcss-import'),
     //     require('tailwindcss'),
     // ]);
