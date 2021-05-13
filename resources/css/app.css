@@ -2,3 +2,12 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import 'vuetify/dist/vuetify.min.css';
+
+.theme--light.v-application code {
+    color: #c1798b;
+    background-color: #f9f2f4;
+}
+
+.theme--light.v-application pre code {
+    background-color: transparent;
+}

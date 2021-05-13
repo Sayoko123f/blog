@@ -1,8 +1,10 @@
 <template>
-  <div v-if="loaded">
-    <div class="text-h2">{{ item.title }}</div>
-    <v-btn @click="back"> Go Back </v-btn>
+  <div v-if="loaded" class="ma-4">
+    <div class="text-h2 mb-2">{{ item.title }}</div>
+    <v-divider class="mb-2"></v-divider>
     <div id="viewer"></div>
+    <v-divider class="mt-4"></v-divider>
+    <v-btn @click="back" class="mt-2"> 上一頁 </v-btn>
   </div>
 </template>
 
@@ -49,6 +51,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-</style>

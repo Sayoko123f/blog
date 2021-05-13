@@ -69,7 +69,7 @@ export default {
         });
     },
     test() {
-      this.email = "collect123a@gmail.com";
+      this.email = "test@test.com";
       this.password = "11111111";
     },
   },

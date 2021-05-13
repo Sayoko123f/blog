@@ -76,11 +76,11 @@ export default {
           href: "/login",
           icon: "mdi-shield-account",
         },
-        {
-          title: "Register",
-          href: "/register",
-          icon: "mdi-shield-account",
-        },
+        // {
+        //   title: "Register",
+        //   href: "/register",
+        //   icon: "mdi-shield-account",
+        // },
       ];
       const auth = [
         ...all,
