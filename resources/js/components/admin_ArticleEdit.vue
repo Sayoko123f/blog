@@ -42,7 +42,7 @@ export default {
   mounted() {
     console.log("ArticleShow mounted.");
     axios
-      .get(my.articleEditURL(this.$route.params.id))
+      .get(window.my.articleEditURL(this.$route.params.id))
       .then((response) => {
         console.log(response.data);
         this.item = response.data;
@@ -105,10 +105,10 @@ export default {
       // console.log(data.ctx_md);
       const headers = {
         "Content-Type": "application/json",
-        "X-CSRF-TOKEN": my.csrf(),
+        "X-CSRF-TOKEN": window.my.csrf(),
       };
       axios
-        .put(my.articleUpdateURL(this.item.id), data, { headers })
+        .put(window.my.articleUpdateURL(this.item.id), data, { headers })
         .then((response) => {
           console.log(response.data);
           this.back();
@@ -125,7 +125,7 @@ export default {
         "X-CSRF-TOKEN": my.csrf(),
       };
       axios
-        .delete(my.articleUpdateURL(this.item.id), null, { headers })
+        .delete(window.my.articleUpdateURL(this.item.id), null, { headers })
         .then((response) => {
           console.log(response.data);
           this.back();

@@ -17,10 +17,14 @@
     <v-app id="app">
         <v-app-bar app>
             <v-app-bar-nav-icon @click.stop="sidebarMenu = !sidebarMenu"></v-app-bar-nav-icon>
-            <v-toolbar-title>Dashboard</v-toolbar-title>
+            <v-toolbar-title>網頁開發筆記</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-spacer></v-spacer>
+            <v-spacer></v-spacer>
             <v-spacer></v-spacer>
             <search-bar></search-bar>
-            <v-icon>mdi-account</v-icon>
+
+            {{-- <v-icon>mdi-account</v-icon> --}}
         </v-app-bar>
 
         <app-navbar :sidebar-menu="sidebarMenu" v-on:togglemenu="menuToggle"></app-navbar>

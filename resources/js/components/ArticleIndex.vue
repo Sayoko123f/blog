@@ -45,7 +45,7 @@ export default {
       this.loaded = false;
       let query = this.$route.query.q ? `&q=${this.$route.query.q}` : "";
       axios
-        .get(`${my.articleIndexURL}?page=${page}${query}`)
+        .get(`${window.my.articleIndexURL}?page=${page}${query}`)
         .then((response) => {
           console.log(response.data);
           this.items = response.data.data;

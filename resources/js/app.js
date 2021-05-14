@@ -17,6 +17,7 @@ const app = new Vue({
     router,
     vuetify: new Vuetify(),
     data: () => ({
+        titleSuffix: ' |網頁開發筆記',
         sidebarMenu: false,
         user: null,
     }),

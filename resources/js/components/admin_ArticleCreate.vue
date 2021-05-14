@@ -80,10 +80,10 @@ export default {
       });
       const headers = {
         "Content-Type": "application/json",
-        "X-CSRF-TOKEN": my.csrf(),
+        "X-CSRF-TOKEN": window.my.csrf(),
       };
       axios
-        .post(my.articleCreateURL, data, { headers })
+        .post(window.my.articleCreateURL, data, { headers })
         .then((response) => {
           console.log(response.data);
           this.$router.push({ name: "admin_articleIndex" });

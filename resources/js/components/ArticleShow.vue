@@ -13,10 +13,11 @@ export default {
   mounted() {
     console.log("ArticleShow mounted.");
     axios
-      .get(my.articleShowURL(this.$route.params.id))
+      .get(window.my.articleShowURL(this.$route.params.id))
       .then((response) => {
         console.log(response.data);
         this.item = response.data;
+        document.title = `${this.item.title}${this.$root.titleSuffix}`;
         this.loaded = true;
       })
       .then(() => {

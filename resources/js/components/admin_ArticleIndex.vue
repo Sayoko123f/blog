@@ -51,7 +51,7 @@ export default {
     init(page) {
       this.loaded = false;
       axios
-        .get(`${my.articleIndexURL}?page=${page}`)
+        .get(`${window.my.articleIndexURL}?page=${page}`)
         .then((response) => {
           this.items = response.data.data;
           this.last_page = response.data.last_page;

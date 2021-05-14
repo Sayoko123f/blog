@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-alert type="success">這是一個測試用頁面！ </v-alert>
     <v-alert type="success">I'm an Alert Usage Example </v-alert>
     <p>Login Status: {{ hello }}</p>
     <v-btn @click="logout">Log out</v-btn>

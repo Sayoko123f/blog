@@ -9,11 +9,14 @@
     <v-list dense>
       <v-list-item>
         <v-list-item-action>
-          <v-icon @click.stop="$emit('togglemenu')">mdi-chevron-left</v-icon>
+          <v-icon @click.stop="$emit('togglemenu', false)"
+            >mdi-chevron-left</v-icon
+          >
         </v-list-item-action>
         <v-list-item-content>
           <v-list-item-title>
-            <h3 class="font-weight-thin">Vuetify Dashboard</h3>
+            <!-- <h3 class="font-weight-thin">Vuetify Dashboard</h3> -->
+            <h3 class="font-weight-thin"></h3>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -23,7 +26,7 @@
         <v-icon>mdi-account-outline</v-icon>
       </v-list-item-avatar>
       <v-list-item-content class="text-truncate">
-        {{username}}
+        {{ username }}
       </v-list-item-content>
       <v-btn icon small>
         <v-icon>mdi-chevron-left</v-icon>
@@ -62,7 +65,7 @@ export default {
   }),
   computed: {
     username() {
-      return this.$root.user ? "Jane Doeski" : "Not login";
+      return this.$root.user ? this.$root.user.name : "Logout";
     },
     items() {
       const all = [
@@ -85,12 +88,12 @@ export default {
       const auth = [
         ...all,
         {
-          title: "AdminIndex",
+          title: "文章管理",
           href: "/admin/article",
           icon: "mdi-shield-account",
         },
         {
-          title: "ArticleCreate",
+          title: "文章發表",
           href: "/admin/article/create",
           icon: "mdi-shield-account",
         },
