@@ -12,11 +12,8 @@ class UploadController extends Controller
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
         $imageName = time() . '.' . $request->image->extension();
-
         $request->image->move(public_path('imgs/upload'), $imageName);
-
-        return response($imageName,200);
+        return response($imageName, 200);
     }
 }
