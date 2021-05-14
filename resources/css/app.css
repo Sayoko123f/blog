@@ -11,3 +11,8 @@
 .theme--light.v-application pre code {
     background-color: transparent;
 }
+
+.tui-editor-contents {
+    font-size: 15px!important;
+    font-family: Roboto,sans-serif!important;
+}

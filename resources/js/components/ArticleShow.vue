@@ -1,8 +1,10 @@
 <template>
   <div v-if="loaded" class="ma-4">
-    <div class="text-h2 mb-2">{{ item.title }}</div>
+    <div class="text-h2 title">{{ item.title }}</div>
     <v-divider class="mb-2"></v-divider>
-    <div id="viewer"></div>
+    <div class="mx-8">
+      <div id="viewer"></div>
+    </div>
     <v-divider class="mt-4"></v-divider>
     <v-btn @click="back" class="mt-2"> 上一頁 </v-btn>
   </div>
@@ -52,3 +54,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.title {
+  font-weight: initial;
+}
+</style>

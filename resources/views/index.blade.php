@@ -16,13 +16,13 @@
 <body>
     <v-app id="app">
         <v-app-bar app>
-            <v-app-bar-nav-icon @click.stop="sidebarMenu = !sidebarMenu"></v-app-bar-nav-icon>
             <v-toolbar-title>網頁開發筆記</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-spacer></v-spacer>
             <v-spacer></v-spacer>
             <v-spacer></v-spacer>
             <search-bar></search-bar>
+            <v-app-bar-nav-icon @click.stop="sidebarMenu = !sidebarMenu" class="ml-1"></v-app-bar-nav-icon>
 
             {{-- <v-icon>mdi-account</v-icon> --}}
         </v-app-bar>

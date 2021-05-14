@@ -5,12 +5,13 @@
     floating
     :permanent="sidebarMenuCopy"
     :mini-variant.sync="mini"
+    right
   >
     <v-list dense>
       <v-list-item>
         <v-list-item-action>
           <v-icon @click.stop="$emit('togglemenu', false)"
-            >mdi-chevron-left</v-icon
+            >mdi-chevron-right</v-icon
           >
         </v-list-item-action>
         <v-list-item-content>
@@ -29,7 +30,7 @@
         {{ username }}
       </v-list-item-content>
       <v-btn icon small>
-        <v-icon>mdi-chevron-left</v-icon>
+        <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
     </v-list-item>
     <v-divider></v-divider>
@@ -70,7 +71,8 @@ export default {
     items() {
       const all = [
         { title: "Home", href: "/", icon: "mdi-home-outline" },
-        { title: "Test", href: "/test", icon: "mdi-shield-account" },
+        { title: "About", href: "/about", icon: "mdi-information" },
+        { title: "Test", href: "/test", icon: "mdi-test-tube" },
       ];
       const guest = [
         ...all,
