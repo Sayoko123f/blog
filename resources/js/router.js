@@ -12,6 +12,8 @@ import rct from './components/RedirectComponent.vue';
 import Login from './components/LoginComponent.vue';
 import Register from './components/RegisterComponent.vue';
 import About from './components/About.vue';
+import Demo from './components/demoComponent.vue';
+import Todolist from './components/TodolistComponent.vue';
 
 const titleSuffix = ' |網頁開發筆記';
 
@@ -19,6 +21,8 @@ const routes = [
     //{ path: '/example', component: example, name: 'example', redirect: '/', meta: { auth: false } },
     { path: '/test', component: example, name: 'test', meta: { title: `Testing${titleSuffix}` } },
     { path: '/about', component: About, name: 'about', meta: { title: `關於本站${titleSuffix}` } },
+    { path: '/demo', component: Demo, name: 'demo', meta: { title: `Demo${titleSuffix}` } },
+    { path: '/demo/todolist', component: Todolist, name: 'todolist', meta: { title: `Todolist${titleSuffix}` } },
     { path: '/login', component: Login, name: 'login', meta: { title: `登入${titleSuffix}` } },
     { path: '/register', component: Register, name: 'register', meta: { title: `註冊${titleSuffix}` } },
     { path: '/redirect', component: rct, name: 'redirect', },

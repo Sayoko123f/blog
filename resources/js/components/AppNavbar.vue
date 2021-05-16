@@ -72,6 +72,7 @@ export default {
       const all = [
         { title: "Home", href: "/", icon: "mdi-home-outline" },
         { title: "About", href: "/about", icon: "mdi-information" },
+        { title: "Demo", href: "/demo", icon: "mdi-file-code-outline" },
         { title: "Test", href: "/test", icon: "mdi-test-tube" },
       ];
       const guest = [
