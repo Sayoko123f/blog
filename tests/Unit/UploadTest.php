@@ -18,7 +18,8 @@ class UploadTest extends TestCase
     {
         $this->post('/login', LoginTest::CORRECTEMAIL);
         $img = UploadedFile::fake()->image('test.png');
-        $res = $this->post('/api/upload/image', ['image' => $img]);
+        $img2 = UploadedFile::fake()->image('test2.png');
+        $res = $this->post('/api/upload/image', ['images' => array($img, $img2)]);
         $res->assertSuccessful();
     }
 }

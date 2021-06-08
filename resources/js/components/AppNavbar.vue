@@ -106,6 +106,12 @@ export default {
           href: "/admin/article/create",
           icon: "mdi-shield-account",
         },
+        {
+          title: "Image",
+          href: "/admin/image/upload",
+          icon: "mdi-image",
+        },
+        
       ];
       return this.$root.user ? auth : guest;
     },

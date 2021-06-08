@@ -8,6 +8,7 @@ const my = {
     csrf() {
         return document.head.querySelector("[name~=csrf-token][content]").content;
     },
+    uploadImageURL: '/api/upload/image'
 };
 
 window.my = my;

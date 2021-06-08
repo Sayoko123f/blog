@@ -9,11 +9,20 @@ class UploadController extends Controller
     //
     public function image(Request $request)
     {
+        // return response(dd($request->all()));
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'images' => 'required|array',
+            'images.*' => 'file|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
         ]);
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('imgs/upload'), $imageName);
-        return response($imageName, 200);
+        $files = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = rand(1, 100) . '_' . time() . '.' . $image->extension();
+                $image->move(public_path('imgs/upload'), $imageName);
+                $files[] = $imageName;
+            }
+        }
+
+        return response("Save OK." . json_encode($files), 200);
     }
 }
