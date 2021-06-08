@@ -21,18 +21,24 @@
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+      <v-list-item class="px-2" @click="navToggleMini = !navToggleMini">
+        <v-list-item-avatar>
+          <v-icon v-show="navToggleMini">mdi-chevron-left</v-icon>
+          <v-icon v-show="!navToggleMini">mdi-chevron-right</v-icon>
+        </v-list-item-avatar>
+        <v-list-item-content class="text-truncate">
+          Collapse
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item class="px-2" v-if="this.$root.user">
+        <v-list-item-avatar>
+          <v-icon>mdi-account-outline</v-icon>
+        </v-list-item-avatar>
+        <v-list-item-content class="text-truncate">
+          {{ username }}
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
-    <v-list-item class="px-2" @click="navToggleMini = !navToggleMini">
-      <v-list-item-avatar>
-        <v-icon>mdi-account-outline</v-icon>
-      </v-list-item-avatar>
-      <v-list-item-content class="text-truncate">
-        {{ username }}
-      </v-list-item-content>
-      <v-btn icon small>
-        <v-icon>mdi-chevron-right</v-icon>
-      </v-btn>
-    </v-list-item>
     <v-divider></v-divider>
     <v-list>
       <v-list-item v-for="item in items" :key="item.title" link :to="item.href">
