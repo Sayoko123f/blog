@@ -79,6 +79,7 @@ export default {
         { title: "Home", href: "/", icon: "mdi-home-outline" },
         { title: "About", href: "/about", icon: "mdi-information" },
         { title: "Demo", href: "/demo", icon: "mdi-file-code-outline" },
+        { title: "Image", href: "/image", icon: "mdi-image" },
         { title: "Test", href: "/test", icon: "mdi-test-tube" },
       ];
       const guest = [
@@ -107,7 +108,7 @@ export default {
           icon: "mdi-shield-account",
         },
         {
-          title: "Image",
+          title: "圖片管理",
           href: "/admin/image/upload",
           icon: "mdi-image",
         },

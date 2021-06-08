@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UploadController extends Controller
 {
@@ -22,7 +23,17 @@ class UploadController extends Controller
                 $files[] = $imageName;
             }
         }
+        // Save filename to Database.
+        foreach ($files as $name) {
+            DB::table('image')->insert(['path' => 'imgs/upload/' . $name]);
+        }
 
-        return response("Save OK." . json_encode($files), 200);
+        return response()->json($files, 200);
+    }
+
+    public function image_show()
+    {
+        $data = DB::table('image')->select(['id', 'path'])->orderByDesc('id')->get();
+        return response()->json($data, 200);
     }
 }

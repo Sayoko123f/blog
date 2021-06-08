@@ -16,6 +16,12 @@
         >Upload</v-btn
       >
     </v-form>
+    <v-snackbar v-model="showSnackbar">
+      Upload file Success.
+      <v-btn color="pink" text @click="showSnackbar = false">
+        Close
+      </v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -37,11 +43,11 @@ export default {
     rules: [
       (files) =>
         !files ||
-        !files.some((file) => file.size > 2_097_152) ||
+        !files.some((file) => file.size > 2097152) ||
         "File size should be less than 2 MB!",
     ],
     uploading: false,
-    showSnackbars: false,
+    showSnackbar: false,
   }),
   computed: {},
   methods: {
@@ -69,6 +75,7 @@ export default {
           console.log(response);
           this.uploading = false;
           this.images = [];
+          this.showSnackbar = true;
         })
         .catch((err) => {
           console.log(err.response);

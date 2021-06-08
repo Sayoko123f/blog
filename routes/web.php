@@ -57,6 +57,10 @@ Route::prefix('api')->group(function () {
     Route::prefix('upload')->group(function () {
         Route::middleware('auth')->post('/image', [Upload::class, 'image']);
     });
+
+    Route::prefix('image')->group(function () {
+        Route::get('/', [Upload::class, 'image_show']);
+    });
 });
 
 Route::fallback(function () {
