@@ -30,10 +30,4 @@ class UploadController extends Controller
 
         return response()->json($files, 200);
     }
-
-    public function image_show()
-    {
-        $data = DB::table('image')->select(['id', 'path'])->orderByDesc('id')->get();
-        return response()->json($data, 200);
-    }
 }

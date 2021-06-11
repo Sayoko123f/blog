@@ -108,8 +108,13 @@ export default {
           icon: "mdi-shield-account",
         },
         {
-          title: "圖片管理",
+          title: "圖片上傳",
           href: "/admin/image/upload",
+          icon: "mdi-image",
+        },
+        {
+          title: "圖片管理",
+          href: "/admin/image",
           icon: "mdi-image",
         },
         

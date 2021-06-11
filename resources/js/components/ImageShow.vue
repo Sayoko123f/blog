@@ -11,11 +11,7 @@
             class="d-flex child-flex"
             cols="4"
           >
-            <v-img
-              :src="item.path"
-              contain
-              @click.stop="selectedItem = item"
-            >
+            <v-img :src="item.path" contain @click.stop="selectedItem = item">
               <template v-slot:placeholder>
                 <v-row class="fill-height ma-0" align="center" justify="center">
                   <v-progress-circular
@@ -30,10 +26,7 @@
       </div>
     </v-container>
     <v-overlay v-if="selectedItem" @click.native="selectedItem = null">
-      <v-img
-        :src="selectedItem.path"
-        contain
-      ></v-img>
+      <v-img :src="selectedItem.path" contain></v-img>
     </v-overlay>
   </div>
 </template>
@@ -43,7 +36,7 @@ export default {
   mounted() {
     console.log("ImageShow mounted.");
     axios
-      .get(window.my.imageShowURL)
+      .get(window.my.imageIndexURL)
       .then((response) => {
         console.log(response);
         this.items = response.data;

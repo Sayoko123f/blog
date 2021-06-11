@@ -22,6 +22,9 @@
         Close
       </v-btn>
     </v-snackbar>
+    <v-overlay :value="uploading">
+      <v-progress-circular indeterminate color="primary"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 

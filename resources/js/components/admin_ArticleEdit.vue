@@ -27,6 +27,9 @@
       </v-btn>
       <v-btn color="warning" class="ma-4" @click="del">Delete</v-btn>
     </v-form>
+    <v-overlay :value="submitDisabled">
+      <v-progress-circular indeterminate color="primary"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 
@@ -40,11 +43,9 @@ export default {
     }
   },
   mounted() {
-    console.log("ArticleShow mounted.");
     axios
       .get(window.my.articleEditURL(this.$route.params.id))
       .then((response) => {
-        console.log(response.data);
         this.item = response.data;
         this.title = response.data.title;
         this.tags = response.data.tags ? response.data.tags.split(",") : [];
@@ -110,7 +111,6 @@ export default {
       axios
         .put(window.my.articleUpdateURL(this.item.id), data, { headers })
         .then((response) => {
-          console.log(response.data);
           this.back();
         })
         .catch((err) => {
@@ -124,10 +124,10 @@ export default {
       const headers = {
         "X-CSRF-TOKEN": my.csrf(),
       };
+      this.submitDisabled = true;
       axios
         .delete(window.my.articleUpdateURL(this.item.id), null, { headers })
         .then((response) => {
-          console.log(response.data);
           this.back();
         })
         .catch((err) => {

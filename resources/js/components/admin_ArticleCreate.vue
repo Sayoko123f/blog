@@ -25,6 +25,9 @@
         Sumbit
       </v-btn>
     </v-form>
+    <v-overlay :value="submitDisabled">
+      <v-progress-circular indeterminate color="primary"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 
@@ -85,7 +88,6 @@ export default {
       axios
         .post(window.my.articleCreateURL, data, { headers })
         .then((response) => {
-          console.log(response.data);
           this.$router.push({ name: "admin_articleIndex" });
         })
         .catch((err) => {

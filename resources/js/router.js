@@ -16,6 +16,7 @@ import Demo from './components/demoComponent.vue';
 import Todolist from './components/TodolistComponent.vue';
 import UploadImages from './components/UploadImages.vue';
 import ImageShow from './components/ImageShow.vue';
+import admin_ImageEdit from './components/admin_ImageEdit.vue';
 
 const titleSuffix = ' |網頁開發筆記';
 
@@ -35,6 +36,7 @@ const routes = [
     { path: '/admin/article/edit/:id', component: admin_ArticleEdit, name: 'articleEdit', },
     { path: '/admin/image/upload', component: UploadImages, name: 'adminImageUpload', meta: { title: `Upload` } },
     { path: '/image', component: ImageShow, name: 'ImageShow', meta: { title: `ImageShow` } },
+    { path: '/admin/image', component: admin_ImageEdit, name: 'ImageEdit', meta: { title: `ImageEdit` } },
 ]
 
 const router = new VueRouter({

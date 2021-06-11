@@ -9,7 +9,8 @@ const my = {
         return document.head.querySelector("[name~=csrf-token][content]").content;
     },
     uploadImageURL: '/api/upload/image',
-    imageShowURL: '/api/image',
+    imageIndexURL: '/api/image',
+    imageDestroyURL(id) { return `/api/image/${id}`; },
 };
 
 window.my = my;

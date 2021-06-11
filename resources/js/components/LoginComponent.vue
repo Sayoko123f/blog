@@ -26,6 +26,9 @@
         <v-btn @click="test" color="secondary">填入測試帳號</v-btn>
       </v-card-text>
     </v-card>
+    <v-overlay :value="loading">
+      <v-progress-circular indeterminate color="primary"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 
@@ -48,20 +51,20 @@ export default {
     emailRules: [(v) => !!v || "Email is required."],
     password: "",
     passwordRules: [(v) => !!v || "Password is required."],
+    loading: false,
   }),
   methods: {
     login() {
       if (!this.$refs.form.validate()) {
         return;
       }
-      console.log("Send login");
+      this.loading = true;
       axios
         .post("/login", {
           email: this.email,
           password: this.password,
         })
         .then((res) => {
-          console.log(res.data);
           location.href = "/";
         })
         .catch((err) => {

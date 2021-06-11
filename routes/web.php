@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController as Article;
 use App\Http\Controllers\UploadController as Upload;
+use App\Http\Controllers\ImageController as Image;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 
@@ -59,7 +60,8 @@ Route::prefix('api')->group(function () {
     });
 
     Route::prefix('image')->group(function () {
-        Route::get('/', [Upload::class, 'image_show']);
+        Route::get('/', [Image::class, 'index']);
+        Route::delete('/{id}', [Image::class, 'destroy']);
     });
 });
 

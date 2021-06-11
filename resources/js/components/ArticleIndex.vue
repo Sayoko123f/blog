@@ -1,23 +1,37 @@
 <template>
   <div v-if="loaded">
-    <v-hover v-slot="{ hover }" v-for="item in items" :key="`${item.id}item`">
-      <v-card :class="{ primary: hover }" @click="show(item.id)" role="button">
-        <v-card-title>{{ item.title }}</v-card-title>
-        <v-card-subtitle>{{ item.created_at }}</v-card-subtitle>
-        <v-card-text>
-          <v-chip
-            v-for="tag in splitTag(item.tags)"
-            :key="`${item.id}-${tag}`"
-            >{{ tag }}</v-chip
-          >
-        </v-card-text>
-      </v-card>
-    </v-hover>
-    <v-pagination
-      v-model="page"
-      :length="last_page"
-      @input="pageMove"
-    ></v-pagination>
+    <v-container class="my-3">
+      <v-hover v-slot="{ hover }" v-for="item in items" :key="`${item.id}item`">
+        <v-row
+          ><v-col>
+            <v-card
+              :class="{ 'pink--text': hover, pink: hover, 'lighten-5': hover }"
+              @click="show(item.id)"
+              role="button"
+            >
+              <v-card-title>{{ item.title }}</v-card-title>
+              <v-card-subtitle>{{ item.created_at }}</v-card-subtitle>
+              <v-card-text>
+                <v-chip
+                  v-for="tag in splitTag(item.tags)"
+                  :key="`${item.id}-${tag}`"
+                  >{{ tag }}</v-chip
+                >
+              </v-card-text>
+            </v-card>
+          </v-col></v-row
+        >
+      </v-hover>
+      <v-row
+        ><v-col>
+          <v-pagination
+            v-model="page"
+            :length="last_page"
+            @input="pageMove"
+          ></v-pagination
+        ></v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -47,7 +61,6 @@ export default {
       axios
         .get(`${window.my.articleIndexURL}?page=${page}${query}`)
         .then((response) => {
-          console.log(response.data);
           this.items = response.data.data;
           this.last_page = response.data.last_page;
           this.loaded = true;
