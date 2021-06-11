@@ -97,25 +97,30 @@ export default {
       ];
       const auth = [
         ...all,
+        // {
+        //   title: "文章管理",
+        //   href: "/admin/article",
+        //   icon: "mdi-shield-account",
+        // },
+        // {
+        //   title: "文章發表",
+        //   href: "/admin/article/create",
+        //   icon: "mdi-shield-account",
+        // },
+        // {
+        //   title: "圖片上傳",
+        //   href: "/admin/image/upload",
+        //   icon: "mdi-image",
+        // },
+        // {
+        //   title: "圖片管理",
+        //   href: "/admin/image",
+        //   icon: "mdi-image",
+        // },
         {
-          title: "文章管理",
-          href: "/admin/article",
+          title: "管理",
+          href: "/admin",
           icon: "mdi-shield-account",
-        },
-        {
-          title: "文章發表",
-          href: "/admin/article/create",
-          icon: "mdi-shield-account",
-        },
-        {
-          title: "圖片上傳",
-          href: "/admin/image/upload",
-          icon: "mdi-image",
-        },
-        {
-          title: "圖片管理",
-          href: "/admin/image",
-          icon: "mdi-image",
         },
         
       ];

@@ -1,5 +1,4 @@
 require('./bootstrap');
-require('alpinejs');
 require('./myfunc');
 import Vue from 'vue';
 import router from './router';

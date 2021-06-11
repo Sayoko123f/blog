@@ -10,7 +10,10 @@ export default {
     console.log("demoComponent mounted.");
   },
   data: () => ({
-    items: [{ text: "Todolist", to: "/demo/todolist" }],
+    items: [
+      { text: "Todolist", to: "/demo/todolist" },
+      { text: "Chartjs ", to: "/demo/chart" },
+    ],
   }),
 };
 </script>

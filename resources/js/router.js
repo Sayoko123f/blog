@@ -17,6 +17,8 @@ import Todolist from './components/TodolistComponent.vue';
 import UploadImages from './components/UploadImages.vue';
 import ImageShow from './components/ImageShow.vue';
 import admin_ImageEdit from './components/admin_ImageEdit.vue';
+import admin_index from './components/admin_Index.vue';
+import demo_Chart from './components/demo_Chart.vue';
 
 const titleSuffix = ' |網頁開發筆記';
 
@@ -26,6 +28,7 @@ const routes = [
     { path: '/about', component: About, name: 'about', meta: { title: `關於本站${titleSuffix}` } },
     { path: '/demo', component: Demo, name: 'demo', meta: { title: `Demo${titleSuffix}` } },
     { path: '/demo/todolist', component: Todolist, name: 'todolist', meta: { title: `Todolist${titleSuffix}` } },
+    { path: '/demo/chart', component: demo_Chart, name: 'demoChart', meta: { title: `Chart` } },
     { path: '/login', component: Login, name: 'login', meta: { title: `登入${titleSuffix}` } },
     { path: '/register', component: Register, name: 'register', meta: { title: `註冊${titleSuffix}` } },
     { path: '/redirect', component: rct, name: 'redirect', },
@@ -37,6 +40,7 @@ const routes = [
     { path: '/admin/image/upload', component: UploadImages, name: 'adminImageUpload', meta: { title: `Upload` } },
     { path: '/image', component: ImageShow, name: 'ImageShow', meta: { title: `ImageShow` } },
     { path: '/admin/image', component: admin_ImageEdit, name: 'ImageEdit', meta: { title: `ImageEdit` } },
+    { path: '/admin', component: admin_index, name: 'admin_index', meta: { title: `admin_index` } },
 ]
 
 const router = new VueRouter({
