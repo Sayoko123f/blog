@@ -11,8 +11,9 @@ export default {
   },
   data: () => ({
     items: [
-      { text: "Todolist", to: "/demo/todolist" },
+      { text: "Map ", to: "/demo/osm" },
       { text: "Chartjs ", to: "/demo/chart" },
+      { text: "Todolist", to: "/demo/todolist" },
     ],
   }),
 };
