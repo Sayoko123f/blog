@@ -26,6 +26,10 @@
         <v-btn @click="test" color="secondary">填入測試帳號</v-btn>
       </v-card-text>
     </v-card>
+    <v-snackbar v-model="showSnackbar">
+      錯誤的帳號密碼，請重試
+      <v-btn color="warning" text @click="showSnackbar = false"> 關閉 </v-btn>
+    </v-snackbar>
     <v-overlay :value="loading">
       <v-progress-circular indeterminate color="primary"></v-progress-circular>
     </v-overlay>
@@ -46,9 +50,16 @@ export default {
     console.log("LoginComponent mounted.");
   },
   data: () => ({
+    showSnackbar: false,
     valid: true,
     email: "",
-    emailRules: [(v) => !!v || "Email is required."],
+    emailRules: [
+      (v) => !!v || "Email is required.",
+      (v) =>
+        /^\w{1,63}@[a-zA-Z0-9]{2,63}\.[a-zA-Z]{2,63}(\.[a-zA-Z]{2,63})?$/.test(
+          v
+        ) || "Email is invalid.",
+    ],
     password: "",
     passwordRules: [(v) => !!v || "Password is required."],
     loading: false,
@@ -68,6 +79,8 @@ export default {
           location.href = "/";
         })
         .catch((err) => {
+          this.loading = false;
+          this.showSnackbar = true;
           console.log(err);
         });
     },

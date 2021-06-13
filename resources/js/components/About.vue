@@ -26,7 +26,7 @@
           "
         >
           <!-- Unleash your creativity without limitations -->
-          Website Design Finial-Project
+          Website Design Final-Project
         </p>
         <v-btn
           class="blue lighten-2 mt-5"
