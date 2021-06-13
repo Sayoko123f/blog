@@ -38,7 +38,6 @@
 <script>
 export default {
   mounted() {
-    console.log("ArticleIndex.vue mounted.");
     let page = parseInt(this.$route.query.page) || 1;
     this.page = page;
     this.init(page);

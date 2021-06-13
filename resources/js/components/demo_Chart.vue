@@ -1,10 +1,10 @@
 <template>
   <div class="small">
+    <v-btn @click="fillData()">Randomize</v-btn>
     <pie-chart v-if="pieData" :chart-data="pieData"></pie-chart>
     <radar-chart v-if="RadarData" :chart-data="RadarData"></radar-chart>
     <line-chart v-if="lineData" :chart-data="lineData"></line-chart>
     <bar-chart v-if="lineData" :chart-data="lineData"></bar-chart>
-    <button @click="fillData()">Randomize</button>
   </div>
 </template>
 

@@ -8,26 +8,13 @@
     right
   >
     <v-list dense>
-      <v-list-item>
-        <v-list-item-action>
-          <v-icon @click.stop="$emit('togglemenu', false)"
-            >mdi-chevron-right</v-icon
-          >
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>
-            <!-- <h3 class="font-weight-thin">Vuetify Dashboard</h3> -->
-            <h3 class="font-weight-thin"></h3>
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
       <v-list-item class="px-2" @click="navToggleMini = !navToggleMini">
         <v-list-item-avatar>
           <v-icon v-show="navToggleMini">mdi-chevron-left</v-icon>
           <v-icon v-show="!navToggleMini">mdi-chevron-right</v-icon>
         </v-list-item-avatar>
         <v-list-item-content class="text-truncate">
-          Collapse
+          Mini
         </v-list-item-content>
       </v-list-item>
       <v-list-item class="px-2" v-if="this.$root.user">
@@ -39,7 +26,7 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
-    <v-divider></v-divider>
+    <v-divider class="mt-n2"></v-divider>
     <v-list>
       <v-list-item v-for="item in items" :key="item.title" link :to="item.href">
         <v-list-item-icon>
@@ -58,7 +45,6 @@
 <script>
 export default {
   mounted() {
-    console.log("AppNavbar mounted.");
     this.sidebarMenuCopy = this.sidebarMenu;
   },
   props: {
@@ -80,7 +66,7 @@ export default {
         { title: "About", href: "/about", icon: "mdi-information" },
         { title: "Demo", href: "/demo", icon: "mdi-file-code-outline" },
         { title: "Image", href: "/image", icon: "mdi-image" },
-        { title: "Test", href: "/test", icon: "mdi-test-tube" },
+        // { title: "Test", href: "/test", icon: "mdi-test-tube" },
       ];
       const guest = [
         ...all,
@@ -89,34 +75,9 @@ export default {
           href: "/login",
           icon: "mdi-shield-account",
         },
-        // {
-        //   title: "Register",
-        //   href: "/register",
-        //   icon: "mdi-shield-account",
-        // },
       ];
       const auth = [
         ...all,
-        // {
-        //   title: "文章管理",
-        //   href: "/admin/article",
-        //   icon: "mdi-shield-account",
-        // },
-        // {
-        //   title: "文章發表",
-        //   href: "/admin/article/create",
-        //   icon: "mdi-shield-account",
-        // },
-        // {
-        //   title: "圖片上傳",
-        //   href: "/admin/image/upload",
-        //   icon: "mdi-image",
-        // },
-        // {
-        //   title: "圖片管理",
-        //   href: "/admin/image",
-        //   icon: "mdi-image",
-        // },
         {
           title: "管理",
           href: "/admin",
@@ -141,11 +102,6 @@ export default {
       set(val) {
         this.$emit("togglemenu", val);
       },
-    },
-  },
-  methods: {
-    hi() {
-      console.log("hi");
     },
   },
 };

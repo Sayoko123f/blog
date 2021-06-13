@@ -9,6 +9,11 @@
       ><v-col>
         <span>圖片</span><v-breadcrumbs :items="image"></v-breadcrumbs> </v-col
     ></v-row>
+    <v-row>
+      <v-col>
+        <v-btn @click="logout">Log out</v-btn>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -34,6 +39,20 @@ export default {
       { text: "上傳圖片", to: { name: "adminImageUpload" } },
     ],
   }),
+  methods: {
+    logout() {
+      console.log("Send logout.");
+      axios
+        .post("/logout")
+        .then((res) => {
+          location.href = "/";
+        })
+        .catch((err) => {
+          console.log("logout error");
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
 
