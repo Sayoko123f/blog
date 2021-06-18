@@ -24,8 +24,10 @@
 - Markdown editor: [tui.editor](https://github.com/nhn/tui.editor)
 
 ## 技術細節
-前後端分離，前端負責畫面呈現與使用者互動，後端負責傳送資料與業務邏輯，增加可維護性。
+MVC架構前後端分離，前端負責畫面呈現與使用者互動，後端負責傳送資料與業務邏輯，增加可維護性。
 ### 後端
+http 重導向至 https
+
 RESTful API 風格，使 API 語義化前端更容易介接。
 
 方法|API|功能|
