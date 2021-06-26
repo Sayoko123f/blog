@@ -1,17 +1,19 @@
 # 實作個人部落格
-## 功能(持續追加)
+## 功能
 前台
   - 瀏覽文章
   - 依標題、標籤搜尋文章
 
-後台
+後台(提供一顆測試帳號登入按鈕，老師可自由測試後台功能)
   - 文章管理
     + 支援 Markdown 
     + 新增、編輯、刪除文章
     + 文章標籤
+  - 上傳圖片
+    + 支援多張同時上傳
+    + 對單檔大小作限制(2MB以下)
 
 > 開發中/預計開發
->- 上傳圖片
 >- 相簿功能
 >- 外人留言功能(會員分級權限)
 
@@ -22,6 +24,8 @@
 - Backend: PHP Laravel 8 
 - Frontend: Vue.js 2 + v-router + vuetify
 - Markdown editor: [tui.editor](https://github.com/nhn/tui.editor)
+- demo/chart: chartjs
+- demo/map: openstreetmap
 
 ## 技術細節
 MVC架構前後端分離，前端負責畫面呈現與使用者互動，後端負責傳送資料與業務邏輯，增加可維護性。
