@@ -10,7 +10,6 @@ import admin_ArticleIndex from './components/admin_ArticleIndex.vue';
 import admin_ArticleEdit from './components/admin_ArticleEdit.vue';
 import rct from './components/RedirectComponent.vue';
 import Login from './components/LoginComponent.vue';
-import Register from './components/RegisterComponent.vue';
 import About from './components/About.vue';
 import Demo from './components/demoComponent.vue';
 import Todolist from './components/TodolistComponent.vue';
@@ -32,7 +31,6 @@ const routes = [
     { path: '/demo/chart', component: demo_Chart, name: 'demoChart', meta: { title: `Chart${titleSuffix}` } },
     { path: '/demo/osm', component: demo_OSM, name: 'demoOSM', meta: { title: `OpenStreetMap${titleSuffix}` } },
     { path: '/login', component: Login, name: 'login', meta: { title: `登入${titleSuffix}` } },
-    { path: '/register', component: Register, name: 'register', meta: { title: `註冊${titleSuffix}` } },
     { path: '/redirect', component: rct, name: 'redirect', },
     { path: '/', component: ArticleIndex, name: 'articleIndex', meta: { title: `筆記列表${titleSuffix}` } },
     { path: '/article/:id', component: ArticleShow, name: 'articleShow', },

@@ -23,7 +23,6 @@
           </v-text-field>
         </v-form>
         <v-btn @click="login" color="primary">Login</v-btn>
-        <v-btn @click="test" color="secondary">填入測試帳號</v-btn>
       </v-card-text>
     </v-card>
     <v-snackbar v-model="showSnackbar">
@@ -83,10 +82,6 @@ export default {
           this.showSnackbar = true;
           console.log(err);
         });
-    },
-    test() {
-      this.email = "test@test.com";
-      this.password = "11111111";
     },
   },
 };
